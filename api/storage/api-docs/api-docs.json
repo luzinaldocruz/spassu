@@ -1,0 +1,1393 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API create Livros",
+        "description": "API documentation for Livros",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api",
+            "description": "API server Local"
+        }
+    ],
+    "paths": {
+        "/api/assuntos": {
+            "get": {
+                "tags": [
+                    "Assuntos"
+                ],
+                "summary": "Retrieve a list of assuntos",
+                "description": "This endpoint retrieves a paginated list of assuntos, with optional filters and pagination.",
+                "operationId": "184fa8dbc9e5d05188bb723294c81da9",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "filter[Descricao]",
+                        "in": "query",
+                        "description": "Filter the list by the 'Descricao' field",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Assunto"
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "description": "Sorting field (e.g., Descricao)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Descricao"
+                        }
+                    },
+                    {
+                        "name": "sort_dir",
+                        "in": "query",
+                        "description": "Sorting direction (asc or desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "example": "asc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of assuntos retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Assunto"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request due to invalid query parameters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid query parameters."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Assuntos"
+                ],
+                "summary": "Create a new Assunto",
+                "operationId": "14d511f316bb8751ad8fb1ba4c925cbf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "Descricao"
+                                ],
+                                "properties": {
+                                    "Descricao": {
+                                        "type": "string",
+                                        "example": "Novo Assunto"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Assunto successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Assunto"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "Descricao": [
+                                                    "The Descricao field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/assuntos/{id}": {
+            "get": {
+                "tags": [
+                    "Assuntos"
+                ],
+                "summary": "Retrieve a specific assunto by its ID",
+                "operationId": "b28de290e62385dd85abf492ec01e825",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "codAs of the assunto to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Assunto details retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Assunto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Assunto not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Assuntos"
+                ],
+                "summary": "Update an existing assunto",
+                "operationId": "ebc4b5b9c23915d793e798fe58d2d1c6",
+                "parameters": [
+                    {
+                        "name": "codAs",
+                        "in": "path",
+                        "description": "codAs of the assunto to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "Descricao"
+                                ],
+                                "properties": {
+                                    "Descricao": {
+                                        "type": "string",
+                                        "example": "Assunto Atualizado"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Assunto updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Assunto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Assunto not found"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "Descricao": [
+                                                    "The Descricao field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Assuntos"
+                ],
+                "summary": "Delete an existing assunto",
+                "operationId": "afe00ef63d33784cf960be14af28abba",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "codAs of the assunto to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Assunto deleted successfully"
+                    },
+                    "404": {
+                        "description": "Assunto not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Assuntos"
+                ],
+                "summary": "Partially update an existing assunto",
+                "operationId": "6aa82c39cb720e05dbfc15470d888c05",
+                "parameters": [
+                    {
+                        "name": "codAs",
+                        "in": "path",
+                        "description": "codAs of the assunto to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "Descricao": {
+                                        "description": "Updated description of the assunto",
+                                        "type": "string",
+                                        "example": "Assunto Atualizado Parcialmente"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Assunto partially updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Assunto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Assunto not found"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "Descricao": [
+                                                    "The Descricao field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/autores": {
+            "get": {
+                "tags": [
+                    "Autores"
+                ],
+                "summary": "Retrieve a list of authors",
+                "description": "This endpoint retrieves a paginated list of authors, with optional filters and pagination.",
+                "operationId": "8f55f86b434f8ef8f83328e0cb9c7e5c",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "filter[nome]",
+                        "in": "query",
+                        "description": "Filter the list by the 'nome' field",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Autor"
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "description": "Sorting field (e.g., nome)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "nome"
+                        }
+                    },
+                    {
+                        "name": "sort_dir",
+                        "in": "query",
+                        "description": "Sorting direction (asc or desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "example": "asc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of authors retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Autor"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request due to invalid query parameters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid query parameters."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Autores"
+                ],
+                "summary": "Create a new author",
+                "operationId": "f8edaeab717b48a7e83b1a60877712ee",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "Novo Autor"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Author successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Autor"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "nome": [
+                                                    "The nome field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/autores/{id}": {
+            "get": {
+                "tags": [
+                    "Autores"
+                ],
+                "summary": "Retrieve a specific author by its ID",
+                "operationId": "7d7537b31c0457535dfb06d4ee92cef7",
+                "parameters": [
+                    {
+                        "name": "CodAu",
+                        "in": "path",
+                        "description": "CodAu of the author to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Author details retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Autor"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Author not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Autores"
+                ],
+                "summary": "Update an existing author",
+                "operationId": "eb2f9e2bf26fd2016e2724efc8ef52bb",
+                "parameters": [
+                    {
+                        "name": "CodAu",
+                        "in": "path",
+                        "description": "CodAu of the author to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome"
+                                ],
+                                "properties": {
+                                    "nome": {
+                                        "type": "string",
+                                        "example": "Autor Atualizado"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Author updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Autor"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Author not found"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "nome": [
+                                                    "The nome field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Autores"
+                ],
+                "summary": "Delete an existing author",
+                "operationId": "69eaccaa8866efd420190aab9e6e9296",
+                "parameters": [
+                    {
+                        "name": "CodAu",
+                        "in": "path",
+                        "description": "CodAu of the author to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Author deleted successfully"
+                    },
+                    "404": {
+                        "description": "Author not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Autores"
+                ],
+                "summary": "Partially update an existing author",
+                "operationId": "69a24cf00d4b0ff6e1296c369bfe0c24",
+                "parameters": [
+                    {
+                        "name": "CodAu",
+                        "in": "path",
+                        "description": "CodAu of the author to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nome": {
+                                        "description": "Updated name of the author",
+                                        "type": "string",
+                                        "example": "Autor Atualizado Parcialmente"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Author partially updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Autor"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Author not found"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "nome": [
+                                                    "The nome field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/livros": {
+            "get": {
+                "tags": [
+                    "Livros"
+                ],
+                "summary": "Retrieve a list of livros with filters and sorting",
+                "operationId": "d45cb9906777296ad6a22788a597d354",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number (Default: 1)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of items per page (Default: 10)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "filter[Codl]",
+                        "in": "query",
+                        "description": "Filter by multiple livro IDs (comma-separated, e.g., 3,25)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "3,25"
+                        }
+                    },
+                    {
+                        "name": "filter[Titulo]",
+                        "in": "query",
+                        "description": "Filter by livro title (partial match)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Livro 2"
+                        }
+                    },
+                    {
+                        "name": "filter[CodAu]",
+                        "in": "query",
+                        "description": "Filter by author ID (e.g., 19)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 19
+                        }
+                    },
+                    {
+                        "name": "filter[CodAs]",
+                        "in": "query",
+                        "description": "Filter by multiple subject IDs (comma-separated, e.g., 40,41)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "40,41"
+                        }
+                    },
+                    {
+                        "name": "filter[Preco]",
+                        "in": "query",
+                        "description": "Filter by a specific livro price",
+                        "required": false,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "example": 27
+                        }
+                    },
+                    {
+                        "name": "sort_by",
+                        "in": "query",
+                        "description": "Sorting field (e.g., Titulo, Codl, Preco)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Titulo"
+                        }
+                    },
+                    {
+                        "name": "sort_dir",
+                        "in": "query",
+                        "description": "Sorting direction (asc or desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ],
+                            "example": "asc"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of livros retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Livro"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Livros"
+                ],
+                "summary": "Create a new Livro",
+                "operationId": "99baa174368119aac0fd14f4debe0976",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "Titulo",
+                                    "Editora",
+                                    "Edicao",
+                                    "AnoPublicacao"
+                                ],
+                                "properties": {
+                                    "Titulo": {
+                                        "description": "Livro title",
+                                        "type": "string",
+                                        "example": "Livro Novo 11"
+                                    },
+                                    "Editora": {
+                                        "description": "Publisher name",
+                                        "type": "string",
+                                        "example": "Editora XPTO"
+                                    },
+                                    "Edicao": {
+                                        "description": "Edition number",
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "AnoPublicacao": {
+                                        "description": "Publication year",
+                                        "type": "string",
+                                        "example": "2024"
+                                    },
+                                    "Preco": {
+                                        "description": "Livro price",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 99.9
+                                    },
+                                    "autores": {
+                                        "description": "List of author IDs",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    },
+                                    "assuntos": {
+                                        "description": "List of subject IDs",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            3,
+                                            4
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Livro successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Livro"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "Titulo": [
+                                                    "The Titulo field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/livros/{id}": {
+            "get": {
+                "tags": [
+                    "Livros"
+                ],
+                "summary": "Retrieve a specific livro by its ID",
+                "operationId": "367bc42b0a188c3af58154e09439715f",
+                "parameters": [
+                    {
+                        "name": "Codl",
+                        "in": "path",
+                        "description": "Codl of the livro to retrieve",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Livro details retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Livro"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Livro not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Livros"
+                ],
+                "summary": "Update an existing livro",
+                "operationId": "a5df221edb86d9b59ddb37e2293c027c",
+                "parameters": [
+                    {
+                        "name": "Codl",
+                        "in": "path",
+                        "description": "Codl of the livro to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "Titulo",
+                                    "Editora",
+                                    "Edicao",
+                                    "AnoPublicacao"
+                                ],
+                                "properties": {
+                                    "Titulo": {
+                                        "description": "Updated livro title",
+                                        "type": "string",
+                                        "example": "Livro Atualizado"
+                                    },
+                                    "Editora": {
+                                        "description": "Updated publisher name",
+                                        "type": "string",
+                                        "example": "Editora XYZ"
+                                    },
+                                    "Edicao": {
+                                        "description": "Updated edition number",
+                                        "type": "integer",
+                                        "example": 3
+                                    },
+                                    "AnoPublicacao": {
+                                        "description": "Updated publication year",
+                                        "type": "string",
+                                        "example": "2023"
+                                    },
+                                    "Preco": {
+                                        "description": "Updated livro price",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 89.9
+                                    },
+                                    "autores": {
+                                        "description": "List of author IDs",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    },
+                                    "assuntos": {
+                                        "description": "List of subject IDs",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            3,
+                                            4
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Livro updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Livro"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Livro not found"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "Titulo": [
+                                                    "The Titulo field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Livros"
+                ],
+                "summary": "Delete an existing livro",
+                "operationId": "b5aea578c993663db27e4da027ee5457",
+                "parameters": [
+                    {
+                        "name": "Codl",
+                        "in": "path",
+                        "description": "Codl of the livro to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Livro deleted successfully"
+                    },
+                    "404": {
+                        "description": "Livro not found"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Livros"
+                ],
+                "summary": "Partially update an existing livro",
+                "operationId": "008ab382c90876b9c5d7811a32fed54b",
+                "parameters": [
+                    {
+                        "name": "Codl",
+                        "in": "path",
+                        "description": "Codl of the livro to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "Titulo": {
+                                        "description": "Updated livro title",
+                                        "type": "string",
+                                        "example": "Livro Updated"
+                                    },
+                                    "Editora": {
+                                        "description": "Updated publisher name",
+                                        "type": "string",
+                                        "example": "Editora ABC"
+                                    },
+                                    "Edicao": {
+                                        "description": "Updated edition number",
+                                        "type": "integer",
+                                        "example": 4
+                                    },
+                                    "AnoPublicacao": {
+                                        "description": "Updated publication year",
+                                        "type": "string",
+                                        "example": "2022"
+                                    },
+                                    "Preco": {
+                                        "description": "Updated livro price",
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 79.9
+                                    },
+                                    "autores": {
+                                        "description": "List of author IDs",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    },
+                                    "assuntos": {
+                                        "description": "List of subject IDs",
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer"
+                                        },
+                                        "example": [
+                                            3,
+                                            4
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Livro updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Livro"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Livro not found"
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Assunto": {
+                "title": "Assunto",
+                "description": "Assunto",
+                "properties": {
+                    "CodAs": {
+                        "description": "Assunto ID",
+                        "type": "integer"
+                    },
+                    "Descricao": {
+                        "description": "Assunto description",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Autor": {
+                "title": "Autor",
+                "description": "Autor",
+                "properties": {
+                    "CodAu": {
+                        "description": "Autor ID",
+                        "type": "integer"
+                    },
+                    "Nome": {
+                        "description": "Autor name",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Livro": {
+                "title": "Livro",
+                "description": "Livro",
+                "properties": {
+                    "Codl": {
+                        "description": "Livro ID",
+                        "type": "integer"
+                    },
+                    "Titulo": {
+                        "description": "Livro title",
+                        "type": "string"
+                    },
+                    "Editora": {
+                        "description": "Publisher name",
+                        "type": "string"
+                    },
+                    "Edicao": {
+                        "description": "Edition number",
+                        "type": "integer"
+                    },
+                    "AnoPublicacao": {
+                        "description": "Publication year",
+                        "type": "string"
+                    },
+                    "Preco": {
+                        "description": "Livro price",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "Autores": {
+                        "description": "List of authors",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "CodAu": {
+                                    "description": "Author ID",
+                                    "type": "integer"
+                                },
+                                "Nome": {
+                                    "description": "Author name",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "Assuntos": {
+                        "description": "List of subjects",
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "CodAs": {
+                                    "description": "Subject ID",
+                                    "type": "integer"
+                                },
+                                "Descricao": {
+                                    "description": "Subject description",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Assuntos",
+            "description": "Assuntos"
+        },
+        {
+            "name": "Autores",
+            "description": "Autores"
+        },
+        {
+            "name": "Livros",
+            "description": "Livros"
+        }
+    ]
+}

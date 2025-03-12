@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  vue-app:
+    build: .
+    command: npm run serve
+    environment:
+      - API_URL=${API_URL}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/app
