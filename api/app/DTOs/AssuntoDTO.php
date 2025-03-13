@@ -6,6 +6,6 @@ class AssuntoDTO
 {
     public function __construct(
         public int $CodAs,
-        public ?string $Descricao,
+        public ?string $descricao,
     ) {}
 }

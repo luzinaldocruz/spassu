@@ -4,7 +4,7 @@
     <form @submit.prevent="saveAssunto">
       <div class="mb-3">
         <label class="form-label" for="descricao">Descrição:</label>
-        <input class="form-control" v-model="assunto.Descricao" id="descricao" required />
+        <input class="form-control" v-model="assunto.descricao" id="descricao" required />
       </div>
       <button class="btn btn-primary me-2" type="submit">Salvar</button>
       <button class="btn btn-secondary" type="button" @click="cancel">Cancelar</button>
@@ -42,6 +42,7 @@ const saveAssunto = async () => {
     }
     router.push({ name: 'Assuntos' });
   } catch (error) {
+    console.log('aki', assunto.value);
     console.error('Erro ao salvar assunto:', error);
   }
 };

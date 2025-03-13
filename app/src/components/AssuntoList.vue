@@ -11,7 +11,7 @@
         </thead>
         <tbody>
           <tr v-for="assunto in assuntos" :key="assunto.CodAs">
-            <td>{{ assunto.Descricao }}</td>
+            <td>{{ assunto.descricao }}</td>
             <td>
               <button class="btn btn-primary me-2"  @click="editAssunto(assunto.CodAs)">Editar</button>
               <button class="btn btn-danger" @click="deleteAssunto(assunto.CodAs)">Excluir</button>

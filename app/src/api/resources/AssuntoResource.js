@@ -6,7 +6,7 @@ class AssuntoResource {
         this.endpoint = '/api/assuntos'
     }
     
-    async getAll(page = 1, perPage = 10, filter = {}, sortBy = 'Descricao', sortDir = 'asc' ) {
+    async getAll(page = 1, perPage = 10, filter = {}, sortBy = 'descricao', sortDir = 'asc' ) {
         const response = await apiClient.get(this.endpoint, {
             params: {
                 page,

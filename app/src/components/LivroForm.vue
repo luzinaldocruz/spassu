@@ -60,7 +60,7 @@
                     <div class="input-group">
                         <select class="form-select" v-model="assuntoSelecionado">
                             <option v-for="assunto in assuntosDisponiveis" :key="assunto.CodAs" :value="assunto.CodAs">
-                                {{ assunto.Descricao }}
+                                {{ assunto.descricao }}
                             </option>
                         </select>
                         <button type="button" class="btn btn-success" @click="adicionarAssunto(assuntoSelecionado)">Adicionar</button>
@@ -189,7 +189,7 @@
 
   const getAssuntoNome = (id) => {
     const assunto = todosAssuntos.value.find(a => a.CodAs === id);
-    return assunto ? assunto.Descricao : 'Desconhecido';
+    return assunto ? assunto.descricao : 'Desconhecido';
   };
   
   const adicionarAutor = (CodAu) => {
