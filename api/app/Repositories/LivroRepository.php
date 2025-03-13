@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Livro;
-use App\DTOs\LivroDTO;
 use App\Http\Resources\LivroResource;
 use App\Models\LivroPreco;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -23,12 +22,6 @@ class LivroRepository extends AbstractRepository
             'CodAs' => ['relation' => 'assuntos', 'column' => 'CodAs'],
             'Preco' => ['relation' => 'preco', 'column' => 'Preco'],
         ];
-    }
-
-    public function getAll($request): LengthAwarePaginator
-    {
-        $request->merge(['with' => ['autores', 'assuntos', 'preco']]);
-        return parent::getAll($request);
     }
 
     public function create(array $data)
@@ -100,6 +93,21 @@ class LivroRepository extends AbstractRepository
             $livro->load(['autores', 'assuntos', 'preco']);
 
             return new LivroResource($livro);
+        });
+    }
+
+    public function delete(int $id)
+    {
+        return DB::transaction(function () use ($id) {
+            $livro = Livro::findOrFail($id);
+
+            $livro->autores()->detach();
+            $livro->assuntos()->detach();
+            $livro->preco()->delete();
+
+            $livro->delete();
+
+            return true;
         });
     }
 }
