@@ -24,11 +24,7 @@ class LivroResource {
   }
 
 async create(livro) {
-    const response = await apiClient.post(this.endpoint, livro, {
-        headers: {
-            'Accept-Language': 'pt-br'
-        }
-    });
+    const response = await apiClient.post(this.endpoint, livro);
     return response.data;
 }
 
