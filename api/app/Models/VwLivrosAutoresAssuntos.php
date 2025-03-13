@@ -20,6 +20,7 @@ class VwLivrosAutoresAssuntos extends Model
         'AnoPublicacao',
         'Editora',
         'CodAs',
-        'Assunto'
+        'Assunto',
+        'Preco',
     ];
 }

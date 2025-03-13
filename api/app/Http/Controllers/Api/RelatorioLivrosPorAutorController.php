@@ -32,6 +32,7 @@ class RelatorioLivrosPorAutorController extends AbstractController
                     'Edicao' => $livro['Edicao'],
                     'AnoPublicacao' => $livro['AnoPublicacao'],
                     'Editora' => $livro['Editora'],
+                    'Preco' => $livro['Preco'],
                     'assuntos' => []
                 ];
             }
@@ -56,13 +57,14 @@ class RelatorioLivrosPorAutorController extends AbstractController
                     <th>Edição</th>
                     <th>Ano de Publicação</th>
                     <th>Editora</th>
+                    <th>Preco</th>
                 </tr>
               </thead>';
         $html .= '<tbody>';
 
         foreach ($autores as $autor => $livros) {
             $html .= '<tr class="autor-header">';
-            $html .= "<td colspan='4'><strong>Autor: {$autor}</strong></td>";
+            $html .= "<td colspan='5'><strong>Autor: {$autor}</strong></td>";
             $html .= '</tr>';
 
             foreach ($livros as $livro) {
@@ -72,13 +74,14 @@ class RelatorioLivrosPorAutorController extends AbstractController
                 $html .= "<td class='small-font'>{$livro['Edicao']}</td>";
                 $html .= "<td class='small-font'>{$livro['AnoPublicacao']}</td>";
                 $html .= "<td class='small-font'>{$livro['Editora']}</td>";
+                $html .= "<td class='small-font'>{$livro['Preco']}</td>";
                 $html .= '</tr>';
 
                 $html .= '<tr class="assunto-row">';
-                $html .= "<td colspan='4'><strong>Assuntos:</strong> " . implode(', ', array_unique($livro['assuntos'])) . "</td>";
+                $html .= "<td colspan='5'><strong>Assuntos:</strong> " . implode(', ', array_unique($livro['assuntos'])) . "</td>";
                 $html .= '</tr>';
 
-                $html .= '<tr class="espaco-livro"><td colspan="4"></td></tr>';
+                $html .= '<tr class="espaco-livro"><td colspan="5"></td></tr>';
             }
         }
 
