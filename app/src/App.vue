@@ -24,6 +24,9 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/livros">Livros</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/relatorios/livros/autor/pdf">Relatorio</router-link>
+            </li>
           </ul>
         </div>
       </div>

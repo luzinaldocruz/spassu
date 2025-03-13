@@ -12,6 +12,7 @@ import LivrosView from '../views/LivrosView.vue';
 import LivroCreateView from '../views/LivroCreateView.vue';
 import LivroEditView from '../views/LivroEditView.vue';
 import HomePageView from '../views/HomePageView.vue';
+import RelatorioLivrosPorAutorView from '../views/RelatorioLivrosPorAutorView.vue';
 
 const routes = [
   {
@@ -64,6 +65,14 @@ const routes = [
     component: LivroEditView,
     props: true,
   },
+
+  {
+    path: '/relatorios/livros/autor/pdf',
+    name: 'LivrosPorAutor',
+    component: RelatorioLivrosPorAutorView,
+    props: true,
+  },
+
 
   { path: '/', component: HomePageView },
 
